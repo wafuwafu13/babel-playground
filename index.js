@@ -7,7 +7,9 @@ const { writeFile } = require("fs");
 const plugin = ({ types: t, template }) => {
   return {
     visitor: {
-      
+      JSXElement: (path) => {
+        path.skip()
+      },
     },
   };
 };

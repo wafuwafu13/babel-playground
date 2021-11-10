@@ -3,6 +3,6 @@ describe("node-assert-2-jest-expect", () => {
     const one = 1;
     fake(one);
     const fake = fake();
-    const fakeComponent = fake( /*#__PURE__*/React.createElement(Fake, null));
+    const fakeComponent = fake(<Fake />);
   });
 });
