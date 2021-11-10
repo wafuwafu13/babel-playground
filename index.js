@@ -7,8 +7,16 @@ const { writeFile } = require("fs");
 const plugin = ({ types: t, template }) => {
   return {
     visitor: {
+      CallExpression: (path) => {
+        if (path.node.callee.name === "assert") {
+          const arg = generate(path.node.arguments[0]).code;
+          const replaceCode = `expect(${arg}).toBeTruthy();`;
+          const newAST = template(replaceCode)();
+          path.replaceWith(newAST);
+        }
+      },
       JSXElement: (path) => {
-        path.skip()
+        path.skip();
       },
     },
   };
