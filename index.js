@@ -9,6 +9,12 @@ const plugin = ({ types: t, template }) => {
     visitor: {
       CallExpression: (path) => {
         if (path.node.callee.name === "assert") {
+          if (
+            t.isJSXElement(path.node.arguments[0]) ||
+            (t.isCallExpression(path.node.arguments[0]) &&
+              t.isJSXElement(path.node.arguments[0].arguments[0]))
+          )
+            return;
           const arg = generate(path.node.arguments[0]).code;
           const replaceCode = `expect(${arg}).toBeTruthy();`;
           const newAST = template(replaceCode)();
