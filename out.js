@@ -1,0 +1,1 @@
+const fakeComponent = fake( /*#__PURE__*/React.createElement(Fake, null));
